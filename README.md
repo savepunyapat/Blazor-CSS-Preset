@@ -1,4 +1,4 @@
-# Intranet CSS preset
+# CSS preset
 
 The design system from the intranet portal, packaged as plain CSS for reuse in other projects.
 No build step and no framework required. MudBlazor support is an optional add-on.
