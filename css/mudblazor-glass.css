@@ -1,0 +1,56 @@
+/* ---------- MudBlazor + liquid glass (optional) ----------
+   Load after glass.css and mudblazor.css. Needs the glass tokens, so never load it without glass.css. */
+.mud-paper:not(.mud-popover), .mud-table, .mud-tabs-tabbar {
+  background-color: var(--glass-fill);
+  background-image: var(--glass-sheen);
+  -webkit-backdrop-filter: var(--glass-filter);
+  backdrop-filter: var(--glass-filter);
+}
+
+.admin-nav .mud-button-root { border-radius: var(--radius-pill); }
+.admin-nav .mud-button-root:hover { background: var(--glass-fill-strong); box-shadow: var(--shadow-sm); }
+.portal-nav .mud-button-root { border-radius: var(--radius-pill); }
+.portal-nav .mud-button-root:hover { background: var(--glass-hover); box-shadow: inset 0 1px 0 var(--glass-highlight-soft); }
+
+/* Capsule buttons; icon buttons are already round. */
+.mud-button { border-radius: var(--radius-pill); }
+.mud-button-filled {
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, .22), rgba(255, 255, 255, 0) 60%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), inset 0 -1px 0 rgba(0, 0, 0, .08), 0 4px 12px rgba(var(--glass-drop), .14);
+}
+.mud-button-filled:hover {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4), inset 0 -1px 0 rgba(0, 0, 0, .08), 0 6px 18px rgba(var(--glass-drop), .2);
+}
+.mud-button-outlined {
+  background-color: var(--glass-fill);
+  -webkit-backdrop-filter: var(--glass-filter);
+  backdrop-filter: var(--glass-filter);
+}
+
+/* Menus and select dropdowns. Tooltips are popovers too, so they are left alone. */
+.mud-popover:not(.mud-tooltip) {
+  background-color: var(--glass-fill-strong);
+  background-image: var(--glass-sheen);
+  -webkit-backdrop-filter: var(--glass-filter-strong);
+  backdrop-filter: var(--glass-filter-strong);
+  border: 1px solid var(--glass-edge); border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+}
+.mud-popover .mud-list { padding-inline: 6px; }
+.mud-popover .mud-menu-item, .mud-popover .mud-list-item { border-radius: 10px; }
+
+.mud-dialog {
+  background-color: var(--glass-fill-strong);
+  background-image: var(--glass-sheen);
+  -webkit-backdrop-filter: var(--glass-filter-strong);
+  backdrop-filter: var(--glass-filter-strong);
+  border: 1px solid var(--glass-edge);
+  box-shadow: var(--shadow-lg);
+}
+.mud-overlay .mud-overlay-scrim.mud-overlay-dark {
+  background-color: rgba(10, 20, 35, .28);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+/* Tables inside a glass container shouldn't stack a second tint. */
+.mud-dialog .mud-table, .mud-paper .mud-table { background-color: transparent; background-image: none; -webkit-backdrop-filter: none; backdrop-filter: none; }

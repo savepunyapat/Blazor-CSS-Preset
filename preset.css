@@ -1,0 +1,7 @@
+/* Intranet CSS preset: core bundle (fonts, tokens, base, components).
+   Optional layers, linked separately after this file: css/glass.css, css/mudblazor.css, css/mudblazor-glass.css.
+   For production you can link the css/ files directly instead of going through @import. */
+@import url("css/fonts.css");
+@import url("css/tokens.css");
+@import url("css/base.css");
+@import url("css/components.css");

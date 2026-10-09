@@ -1,0 +1,15 @@
+/* ---------- MudBlazor refinements (optional) ----------
+   Load after MudBlazor.min.css and components.css. Pair with the MudTheme in README.md so Mud's palette
+   matches tokens.css. Mud components inside .portal-nav / .admin-nav get the same look as plain links. */
+:root { --mud-palette-skeleton: rgba(22, 32, 46, .08); } /* visible before MudThemeProvider injects its palette */
+html[data-theme="dark"] { --mud-palette-skeleton: rgba(255, 255, 255, .08); }
+
+.mud-button-root, .mud-tab { text-transform: none; letter-spacing: 0; font-weight: 500; }
+.mud-paper-outlined, .mud-table-outlined { border-color: var(--border) !important; }
+.mud-tabs-rounded { border-radius: var(--radius-md); }
+.mud-dialog { border-radius: var(--radius-lg); }
+
+.admin-nav .mud-button-root { font-weight: 500; color: var(--text-muted); border-radius: 8px; }
+.admin-nav .mud-button-root:hover { color: var(--brand-700); background: var(--surface); }
+.portal-nav .mud-button-root { font-weight: 500; font-size: .95rem; color: var(--text); border-radius: var(--radius-sm); padding-inline: 12px; }
+.portal-nav .mud-button-root:hover { background: var(--brand-50); color: var(--brand-700); }

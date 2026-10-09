@@ -1,0 +1,21 @@
+/* ---------- Base ----------
+   Page defaults, layout shell and accessibility. Requires tokens.css. */
+html, body { font-family: var(--font-sans); }
+body { margin: 0; background: var(--canvas); color: var(--text); -webkit-font-smoothing: antialiased; }
+
+.portal-container { max-width: var(--container-max); margin: 0 auto; padding-inline: var(--container-gutter); }
+@media (max-width: 600px) { .portal-container { padding-inline: 16px; } }
+
+/* Sticky footer: put .portal-shell on the app root (Blazor's #app is covered too) and .portal-main on <main>. */
+.portal-shell, #app { min-height: 100vh; display: flex; flex-direction: column; }
+.portal-main { flex: 1 0 auto; width: 100%; padding-block: 32px 16px; box-sizing: border-box; }
+
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--radius-sm); }
+h1:focus { outline: none; }
+
+.mono { font-family: var(--font-mono); font-size: .85em; }
+.text-muted { color: var(--text-muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

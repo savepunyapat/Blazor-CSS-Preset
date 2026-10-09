@@ -1,0 +1,162 @@
+/* ---------- Liquid glass theme (optional) ----------
+   Apple-style translucent layer over components.css. Purely additive: it redefines tokens and overrides
+   selectors, so removing its <link> restores the default look. Must load after tokens.css and components.css. */
+
+/* ---------- Glass tokens ---------- */
+:root {
+  /* Glass needs something colourful behind it to refract; this replaces the flat canvas. */
+  --glass-canvas:
+    radial-gradient(60vmax 50vmax at 0% 0%, rgba(47, 93, 163, .26), transparent 60%),
+    radial-gradient(50vmax 45vmax at 100% 10%, rgba(45, 212, 191, .20), transparent 60%),
+    radial-gradient(55vmax 50vmax at 15% 100%, rgba(167, 139, 250, .20), transparent 60%),
+    radial-gradient(45vmax 40vmax at 95% 95%, rgba(251, 191, 36, .12), transparent 60%);
+
+  --glass-fill: rgba(255, 255, 255, .58);
+  --glass-fill-strong: rgba(255, 255, 255, .78);
+  --glass-recess: rgba(255, 255, 255, .35);
+  --glass-hover: rgba(255, 255, 255, .72);
+  --glass-edge: rgba(255, 255, 255, .75);
+  --glass-highlight: rgba(255, 255, 255, .9);
+  --glass-highlight-soft: rgba(255, 255, 255, .55);
+  /* Top-down sheen layered over the fill, like light catching a curved surface. */
+  --glass-sheen: linear-gradient(180deg, rgba(255, 255, 255, .45), rgba(255, 255, 255, 0) 42%);
+  --glass-filter: blur(20px) saturate(180%);
+  --glass-filter-strong: blur(28px) saturate(200%);
+  --glass-drop: 16, 32, 56;
+
+  /* Existing tokens re-pointed at glass so component rules pick it up without per-rule overrides. */
+  --surface: var(--glass-fill);
+  --header-bg: var(--glass-fill-strong);
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-control: var(--radius-pill);
+  /* Inset specular rim + soft drop; reused by every hover/focus rule that sets --shadow-*. */
+  --shadow-sm:
+    inset 0 1px 0 var(--glass-highlight), inset 0 -1px 0 rgba(255, 255, 255, .25), inset 0 0 0 1px rgba(255, 255, 255, .3),
+    0 1px 2px rgba(var(--glass-drop), .06), 0 8px 24px rgba(var(--glass-drop), .08);
+  --shadow-md:
+    inset 0 1px 0 var(--glass-highlight), inset 0 -1px 0 rgba(255, 255, 255, .25), inset 0 0 0 1px rgba(255, 255, 255, .3),
+    0 2px 6px rgba(var(--glass-drop), .08), 0 16px 36px rgba(var(--glass-drop), .14);
+  --shadow-lg:
+    inset 0 1px 0 var(--glass-highlight), inset 0 0 0 1px rgba(255, 255, 255, .3),
+    0 4px 12px rgba(var(--glass-drop), .10), 0 28px 60px rgba(var(--glass-drop), .20);
+}
+
+html[data-theme="dark"] {
+  --glass-canvas:
+    radial-gradient(60vmax 50vmax at 0% 0%, rgba(47, 93, 163, .42), transparent 60%),
+    radial-gradient(50vmax 45vmax at 100% 10%, rgba(15, 118, 110, .34), transparent 60%),
+    radial-gradient(55vmax 50vmax at 15% 100%, rgba(109, 40, 217, .26), transparent 60%),
+    radial-gradient(45vmax 40vmax at 95% 95%, rgba(190, 18, 60, .14), transparent 60%);
+
+  --glass-fill: rgba(28, 38, 56, .52);
+  --glass-fill-strong: rgba(22, 31, 47, .74);
+  --glass-recess: rgba(255, 255, 255, .05);
+  --glass-hover: rgba(255, 255, 255, .08);
+  --glass-edge: rgba(255, 255, 255, .12);
+  --glass-highlight: rgba(255, 255, 255, .16);
+  --glass-highlight-soft: rgba(255, 255, 255, .10);
+  --glass-sheen: linear-gradient(180deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, 0) 42%);
+  --glass-drop: 0, 0, 0;
+
+  --surface: var(--glass-fill);
+  --header-bg: var(--glass-fill-strong);
+  --shadow-sm:
+    inset 0 1px 0 var(--glass-highlight), inset 0 0 0 1px rgba(255, 255, 255, .04),
+    0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .28);
+  --shadow-md:
+    inset 0 1px 0 var(--glass-highlight), inset 0 0 0 1px rgba(255, 255, 255, .05),
+    0 2px 6px rgba(0, 0, 0, .35), 0 16px 36px rgba(0, 0, 0, .4);
+  --shadow-lg:
+    inset 0 1px 0 var(--glass-highlight), inset 0 0 0 1px rgba(255, 255, 255, .05),
+    0 4px 12px rgba(0, 0, 0, .4), 0 28px 60px rgba(0, 0, 0, .55);
+}
+
+/* Readability fallbacks: no backdrop-filter support, or the user asked for less transparency. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root { --glass-fill: rgba(255, 255, 255, .92); --glass-fill-strong: rgba(255, 255, 255, .97); }
+  html[data-theme="dark"] { --glass-fill: rgba(24, 33, 48, .94); --glass-fill-strong: rgba(21, 30, 44, .98); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  :root { --glass-fill: #ffffff; --glass-fill-strong: #ffffff; --glass-recess: var(--canvas); }
+  html[data-theme="dark"] { --glass-fill: #151e2c; --glass-fill-strong: #151e2c; --glass-recess: var(--canvas); }
+}
+
+/* ---------- Canvas ---------- */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: var(--glass-canvas);
+}
+
+/* ---------- Shared glass material ---------- */
+.portal-header, .portal-footer, .surface, .icon-tile, .link-card {
+  background-color: var(--glass-fill);
+  background-image: var(--glass-sheen);
+  -webkit-backdrop-filter: var(--glass-filter);
+  backdrop-filter: var(--glass-filter);
+  border-color: var(--glass-edge);
+}
+.surface, .portal-footer { box-shadow: var(--shadow-sm); }
+
+/* ---------- Floating header capsule ---------- */
+.portal-header {
+  top: 12px; margin: 12px auto 0; width: calc(100% - 24px); max-width: calc(var(--container-max) + 32px); box-sizing: border-box;
+  border: 1px solid var(--glass-edge); border-radius: 24px;
+  background-color: var(--header-bg);
+  -webkit-backdrop-filter: var(--glass-filter-strong);
+  backdrop-filter: var(--glass-filter-strong);
+  box-shadow: var(--shadow-md);
+}
+.portal-header .notice-banner { border-radius: 23px 23px 0 0; }
+
+/* Segmented control look for the admin links. */
+.admin-nav {
+  border-radius: var(--radius-pill); background: var(--glass-recess); border-color: var(--glass-edge);
+  box-shadow: inset 0 1px 2px rgba(var(--glass-drop), .10);
+}
+.admin-nav > a, .admin-nav > button { border-radius: var(--radius-pill); }
+.admin-nav > a:hover, .admin-nav > button:hover, .admin-nav > [aria-current="page"] { background: var(--glass-fill-strong); box-shadow: var(--shadow-sm); }
+
+.portal-nav > a, .portal-nav > button { border-radius: var(--radius-pill); }
+.portal-nav > a:hover, .portal-nav > button:hover, .portal-nav > [aria-current="page"] { background: var(--glass-hover); box-shadow: inset 0 1px 0 var(--glass-highlight-soft); }
+
+/* ---------- Footer capsule ---------- */
+.portal-footer {
+  margin: 72px auto 16px; width: calc(100% - 24px); max-width: calc(var(--container-max) + 32px); box-sizing: border-box;
+  border: 1px solid var(--glass-edge); border-radius: 28px;
+}
+
+/* ---------- Tiles, badges, rows ---------- */
+.icon-tile .tile-icon, .side-link .side-badge, .icon-badge, .brand-mark {
+  box-shadow: inset 0 1px 0 var(--glass-highlight-soft), inset 0 0 0 1px rgba(255, 255, 255, .12);
+}
+.icon-tile .tile-icon { border-radius: 16px; }
+.side-link { border-radius: 12px; transition: background .15s ease, box-shadow .15s ease; }
+.side-link:hover { background: var(--glass-hover); box-shadow: inset 0 1px 0 var(--glass-highlight-soft), 0 1px 3px rgba(var(--glass-drop), .06); }
+
+/* ---------- Buttons and inputs ---------- */
+.btn-primary, .btn-accent {
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, .22), rgba(255, 255, 255, 0) 60%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .35), inset 0 -1px 0 rgba(0, 0, 0, .08), 0 4px 12px rgba(var(--glass-drop), .14);
+}
+.btn-primary:hover, .btn-accent:hover {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4), inset 0 -1px 0 rgba(0, 0, 0, .08), 0 6px 18px rgba(var(--glass-drop), .2);
+}
+.btn-outline, .input {
+  background-color: var(--glass-fill);
+  -webkit-backdrop-filter: var(--glass-filter);
+  backdrop-filter: var(--glass-filter);
+}
+.input { border-radius: var(--radius-sm); border-color: var(--glass-edge); box-shadow: inset 0 1px 2px rgba(var(--glass-drop), .08); }
+.input:focus { border-color: var(--brand-500); box-shadow: var(--focus-ring); }
+
+/* ---------- Slide: glass caption card instead of a full-width gradient ---------- */
+.slide .overlay {
+  inset: auto 20px 48px 20px; max-width: 640px; padding: 18px 22px; border-radius: 20px;
+  background: rgba(12, 22, 40, .32); border: 1px solid rgba(255, 255, 255, .22);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), 0 8px 24px rgba(0, 0, 0, .18);
+}
+@media (max-width: 600px) { .slide .overlay { inset: auto 12px 44px 12px; padding: 14px 16px; } }

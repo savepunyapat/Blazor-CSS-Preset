@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Preset Demo</title>
+    <script src="js/theme.js" data-storage-key="preset-demo.theme"></script>
+    <link href="preset.css" rel="stylesheet" />
+    <link id="glass-css" href="css/glass.css" rel="stylesheet" disabled />
+    <style>
+        .demo-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+        .demo-grid-2 { display: grid; grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr); gap: 20px; }
+        .demo-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 12px; }
+        .demo-swatch { padding: 10px; font-size: .8rem; }
+        .demo-swatch span { display: block; height: 40px; border-radius: var(--radius-sm); margin-bottom: 8px; border: 1px solid var(--border); }
+        @media (max-width: 860px) { .demo-grid-2 { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+<div class="portal-shell">
+    <header class="portal-header">
+        <div class="notice-banner">Demo page for the intranet CSS preset. <button class="dismiss" aria-label="Dismiss" onclick="this.parentElement.remove()">&times;</button></div>
+        <div class="portal-container">
+            <div class="header-bar">
+                <a class="brand" href="#"><span class="brand-mark" aria-hidden="true">P</span><span class="brand-name">Preset</span></a>
+                <span class="header-spacer"></span>
+                <nav class="admin-nav" aria-label="Administration">
+                    <a href="#" aria-current="page">Menus</a>
+                    <a href="#">Pages</a>
+                </nav>
+                <button class="btn btn-outline" id="glass-toggle" aria-pressed="false">Glass: off</button>
+                <button class="btn btn-icon" id="theme-toggle" aria-label="Toggle dark mode">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+                </button>
+            </div>
+            <nav class="portal-nav" aria-label="Main menu">
+                <a href="#" aria-current="page">Home</a>
+                <a href="#">Departments</a>
+                <a href="#">Services</a>
+                <a href="#">Policies</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="portal-container portal-main">
+        <section class="home-hero">
+            <div class="eyebrow">Welcome</div>
+            <h1>Intranet Preset</h1>
+            <p>Tokens, components and an optional glass layer, ready for any project.</p>
+        </section>
+
+        <div class="icon-bar">
+            <a class="icon-tile tone-0" href="#"><span class="tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><span class="caption">Calendar</span></a>
+            <a class="icon-tile tone-1" href="#"><span class="tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></span><span class="caption">People</span></a>
+            <a class="icon-tile tone-2" href="#"><span class="tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span><span class="caption">Documents</span></a>
+            <a class="icon-tile tone-3" href="#"><span class="tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span><span class="caption">Time sheet</span></a>
+            <a class="icon-tile tone-4" href="#"><span class="tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/></svg></span><span class="caption">Welfare</span></a>
+            <a class="icon-tile tone-5" href="#"><span class="tile-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg></span><span class="caption">Reports</span></a>
+        </div>
+
+        <div class="demo-grid-2">
+            <div class="slide" style="background: linear-gradient(135deg, #1a3a6b, #2f5da3 45%, #0f766e); min-height: 360px;">
+                <div class="overlay">
+                    <h3>Quarterly town hall</h3>
+                    <p>Image slide with caption overlay. Turn on glass to see the caption card variant.</p>
+                </div>
+            </div>
+            <aside class="surface side-panel">
+                <div class="side-head"><h2>Quick links</h2></div>
+                <div class="side-scroll">
+                    <div class="side-group">
+                        <div class="side-label">Systems</div>
+                        <a class="side-link tone-0" href="#"><span class="side-badge">HR</span><span class="side-text"><span class="side-title">HR self-service</span><span class="side-desc">Leave, payslips and personal details</span></span><span class="side-arrow">&rarr;</span></a>
+                        <a class="side-link tone-1" href="#"><span class="side-badge">IT</span><span class="side-text"><span class="side-title">IT help desk</span><span class="side-desc">Raise and track support tickets</span></span><span class="side-arrow">&rarr;</span></a>
+                    </div>
+                    <div class="side-group">
+                        <div class="side-label">Forms</div>
+                        <a class="side-link tone-2" href="#"><span class="side-badge">PR</span><span class="side-text"><span class="side-title">Purchase request</span><span class="side-desc">Request goods and services</span></span><span class="side-arrow">&rarr;</span></a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <section class="section">
+            <div class="section-head"><h2 class="section-title">Cards</h2></div>
+            <div class="card-grid">
+                <div class="link-card"><span class="icon-badge tone-0">A</span><h3>Announcements</h3><p>Company news and updates from every department.</p><a class="btn card-action" href="#">Open &rarr;</a></div>
+                <div class="link-card"><span class="icon-badge tone-1">K</span><h3>Knowledge base</h3><p>Guides, how-tos and answers to common questions.</p><a class="btn card-action" href="#">Open &rarr;</a></div>
+                <div class="link-card"><span class="icon-badge tone-3">!</span><h3>Safety notices</h3><p>Site rules and current safety bulletins.</p><a class="btn card-action" href="#">Open &rarr;</a></div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="page-header">
+                <div>
+                    <div class="eyebrow">Page header</div>
+                    <h1>Buttons and fields</h1>
+                    <p class="page-desc">Plain HTML controls styled with the same tokens as the MudBlazor theme.</p>
+                </div>
+            </div>
+            <div class="surface" style="padding: 24px; display: grid; gap: 20px;">
+                <div class="demo-row">
+                    <button class="btn btn-primary">Primary</button>
+                    <button class="btn btn-accent">Accent</button>
+                    <button class="btn btn-outline">Outline</button>
+                    <button class="btn">Text</button>
+                    <button class="btn btn-primary" disabled>Disabled</button>
+                    <span class="chip tone-1">Active</span>
+                    <span class="chip tone-3">Pending</span>
+                    <span class="chip tone-4">Overdue</span>
+                </div>
+                <div class="demo-row" style="align-items: flex-start;">
+                    <div class="field" style="flex: 1 1 240px;"><label for="f1">Name</label><input class="input" id="f1" placeholder="Your name" /><span class="hint">As shown on your ID card.</span></div>
+                    <div class="field" style="flex: 1 1 240px;"><label for="f2">Department</label><select class="input" id="f2"><option>Finance</option><option>Human resources</option></select></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-head"><h2 class="section-title">Tokens</h2></div>
+            <div class="demo-swatches" id="swatches"></div>
+        </section>
+
+        <div class="surface empty-state">
+            <div class="icon-badge muted">?</div>
+            <h2>Nothing here yet</h2>
+            <p>Empty-state block for lists with no content.</p>
+        </div>
+    </main>
+
+    <footer class="portal-footer">
+        <div class="portal-container footer-inner">
+            <nav class="footer-links"><a href="#">Contact</a><a href="#">Privacy</a><a href="#">Help</a></nav>
+            <span class="footer-social text-muted">&copy; 2026</span>
+        </div>
+    </footer>
+</div>
+<script>
+    document.getElementById('theme-toggle').onclick = function () { presetTheme.toggle(); };
+    var glass = document.getElementById('glass-css'), glassBtn = document.getElementById('glass-toggle');
+    glassBtn.onclick = function () {
+        glass.disabled = !glass.disabled;
+        glassBtn.textContent = 'Glass: ' + (glass.disabled ? 'off' : 'on');
+        glassBtn.setAttribute('aria-pressed', String(!glass.disabled));
+    };
+    // Deep links for screenshots: demo.html?theme=dark&glass=1
+    var q = new URLSearchParams(location.search);
+    if (q.has('theme')) presetTheme.set(q.get('theme') === 'dark');
+    if (q.get('glass') === '1') glassBtn.click();
+    ['--brand-900', '--brand-700', '--brand-500', '--brand-100', '--brand-50', '--accent-600', '--accent-100',
+     '--canvas', '--surface', '--border', '--text', '--text-muted', '--success', '--warning', '--error']
+        .forEach(function (t) {
+            var d = document.createElement('div');
+            d.className = 'surface demo-swatch';
+            d.innerHTML = '<span style="background: var(' + t + ')"></span><code class="mono">' + t + '</code>';
+            document.getElementById('swatches').appendChild(d);
+        });
+</script>
+</body>
+</html>
